@@ -3,17 +3,22 @@ version: '3.7'
 volumes:
   grafana_data: {}
   prometheus_data: {}
+  storage_api_data: {}
 
 services:
   prometheus:
+    container_name: prometheus
     image: prom/prometheus:v2.33.0
     ports:
       - 9090:9090
     volumes:
       - ./deploy/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
 
   grafana:
+    container_name: grafana
     image: grafana/grafana-oss:8.3.4
     ports:
       - 3000:3000
@@ -27,3 +32,10 @@ services:
     depends_on:
       - prometheus
 
+  storage_api:
+    build: ./src/
+    container_name: storage_api
+    ports:
+      - 5000:5000
+    volumes:
+      - storage_api_data:/app

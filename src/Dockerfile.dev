@@ -1,0 +1,11 @@
+FROM python:3.8-slim-buster
+
+WORKDIR /app
+
+RUN python3 -m pip install --upgrade pip
+
+COPY . .
+
+RUN pip3 install -e .[dev]
+
+CMD [ "hupper","-m","waitress","--port","5000","storage:app" ]
