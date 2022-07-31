@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -26,6 +29,10 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -79,7 +86,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"storage_api:5000\", job=\"storage_api\"}"
+              "options": "{instance=\"storage-api:5000\", job=\"storage_api\"}"
             },
             "properties": [
               {
@@ -104,7 +111,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -124,6 +132,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -177,7 +189,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"storage_api:5000\", job=\"storage_api\", statusCode=\"200\"}"
+              "options": "{instance=\"storage-api:5000\", job=\"storage_api\", statusCode=\"200\"}"
             },
             "properties": [
               {
@@ -189,7 +201,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"storage_api:5000\", job=\"storage_api\", statusCode=\"404\"}"
+              "options": "{instance=\"storage-api:5000\", job=\"storage_api\", statusCode=\"404\"}"
             },
             "properties": [
               {
@@ -201,7 +213,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{instance=\"storage_api:5000\", job=\"storage_api\", statusCode=\"500\"}"
+              "options": "{instance=\"storage-api:5000\", job=\"storage_api\", statusCode=\"500\"}"
             },
             "properties": [
               {
@@ -226,7 +238,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
@@ -236,7 +249,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum without(path,method,statusCode)(storage_api_http_request_duration_seconds_count{job=\"storage_api\"})",
+          "expr": "sum without(path,method)(storage_api_http_request_duration_seconds_count{job=\"storage_api\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -246,15 +259,15 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
-  "schemaVersion": 34,
+  "refresh": "5s",
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-2m",
     "to": "now"
   },
   "timepicker": {},

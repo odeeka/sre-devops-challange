@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: mycluster-registry:44181/storage
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "v1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +37,11 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  name: api
+  type: NodePort
+  port: 5000
+  targetPort: 5000
+  nodePort: 30080
 
 ingress:
   enabled: false

@@ -16,6 +16,12 @@ ports:
   - port: 0.0.0.0:5000:30080 # storage api -> storage api nodeport svc
     nodeFilters:
       - loadbalancer
+  - port: 0.0.0.0:9090:30090 # prometheus -> prometheus nodeport svc
+    nodeFilters:
+      - loadbalancer
+  - port: 0.0.0.0:3000:30100 # grafana -> grafna nodeport svc
+    nodeFilters:
+      - loadbalancer
 
 options:
   k3d:

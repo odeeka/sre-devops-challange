@@ -1,0 +1,36 @@
+alertmanager:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: false
+
+nodeExporter:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+image:
+  repository: prom/prometheus
+  pullPolicy: IfNotPresent
+  tag: "v2.33.0"
+
+server:
+  service:
+    servicePort: 9090
+    type: NodePort
+    nodePort: 30090
+
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+extraScrapeConfigs: |
+  - job_name: "storage_api"
+    scrape_interval: 5s
+    metrics_path: /api/metrics
+    static_configs:
+      - targets: ["storage-api:5000"]
+
+
+
